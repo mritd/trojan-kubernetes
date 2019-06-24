@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mariadb
+  namespace: trojan
+  labels:
+    environment: production
+    app: mariadb
+spec:
+  selector:
+    matchLabels:
+      app: mariadb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mariadb
+    spec:
+      containers:
+      - name: mariadb
+        image: mariadb
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-cred
+              key: root-password
+        - name: MYSQL_DATABASE
+          value: trojan
+        - name: MYSQL_USER
+          value: trojan
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-cred
+              key: user-password
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: pv
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: pv
+        persistentVolumeClaim:
+          claimName: mariadb-pvc

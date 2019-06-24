@@ -15,6 +15,10 @@ spec:
       labels:
         app: trojan
     spec:
+      initContainers:
+      - name: wait-for-mariadb
+        image: busybox
+        command: ['sh', '-c', 'until echo | nc mariadb-service 3306; do sleep 2; done']
       containers:
       - name: trojan
         image: trojangfw/trojan:1.12.3

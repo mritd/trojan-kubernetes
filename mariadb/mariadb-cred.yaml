@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mariadb-cred
+  namespace: trojan
+  labels:
+    environment: production
+    app: mariadb
+type: Opaque
+stringData:
+  root-password: root-password
+  user-password: user-password
