@@ -23,14 +23,14 @@ Kubernetes configuration templates for deploying trojan to a Kubernetes cluster.
     apiVersion: v1
     kind: Secret
     metadata:
-    name: trojan-tls-cert
-    namespace: trojan
-    labels:
+      name: trojan-tls-cert
+      namespace: trojan
+      labels:
         environment: production
         app: trojan
     type: kubernetes.io/tls
     stringData:
-    tls.crt: |
+      tls.crt: |
         -----BEGIN CERTIFICATE-----
         MIIB4TCCAYugAwIBAgIUMiKFserc3CwkDePOUdrqMMFYJPMwDQYJKoZIhvcNAQEL
         BQAwRTELMAkGA1UEBhMCQVUxEzARBgNVBAgMClNvbWUtU3RhdGUxITAfBgNVBAoM
@@ -44,7 +44,7 @@ Kubernetes configuration templates for deploying trojan to a Kubernetes cluster.
         vxCxE75fr7CtQJMgBG3rsi9oZd4C/OcW8xTdd8N0WNcPM3ptcUDWz4ulUpjLwwOK
         4hCksy4=
         -----END CERTIFICATE-----
-    tls.key: |
+      tls.key: |
         -----BEGIN PRIVATE KEY-----
         MIIBVgIBADANBgkqhkiG9w0BAQEFAASCAUAwggE8AgEAAkEAzrr0huefOGHyfhwv
         4n0RZBxmcWZVB8ZoslBqQwU7zvZknrzQgnwlgzW7Jd+sGjhU2FqzPJF2GfwCfhMf
