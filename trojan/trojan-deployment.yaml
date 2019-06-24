@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trojan
+  namespace: trojan
+  labels:
+    environment: production
+    app: trojan
+spec:
+  selector:
+    matchLabels:
+      app: trojan
+  template:
+    metadata:
+      labels:
+        app: trojan
+    spec:
+      containers:
+      - name: trojan
+        image: trojangfw/trojan:1.12.3
+        ports:
+        - containerPort: 443
+        volumeMounts:
+        - name: server-config
+          mountPath: /config
+        - name: tls-cert
+          mountPath: /config/tls
+      volumes:
+      - name: server-config
+        configMap:
+          name: trojan-server-config
+          items:
+          - key: server-config
+            path: config.json
+            mode: 400
+      - name: tls-cert
+        secret:
+          secretName: trojan-tls-cert
+          items:
+          - key: tls.crt
+            path: certificate.crt
+            mode: 400
+          - key: tls.key
+            path: private.key
+            mode: 400
