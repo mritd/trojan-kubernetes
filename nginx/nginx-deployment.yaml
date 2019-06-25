@@ -20,3 +20,13 @@ spec:
         image: nginx:alpine
         ports:
         - containerPort: 80
+        volumeMounts:
+        - name: site-config
+          mountPath: /etc/nginx/conf.d
+      volumes:
+      - name: site-config
+        configMap:
+          name: nginx-site-config
+          items:
+          - key: site-config
+            path: default.conf

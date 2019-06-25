@@ -21,5 +21,7 @@ spec:
         env:
         - name: PMA_HOST
           value: mariadb-service
+        - name: PMA_ABSOLUTE_URI
+          value: /pma-trojan/
         ports:
         - containerPort: 80
