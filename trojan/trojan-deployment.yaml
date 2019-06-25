@@ -36,7 +36,6 @@ spec:
           items:
           - key: server-config
             path: config.json
-            mode: 400
       - name: tls-cert
         secret:
           secretName: trojan-tls-cert
